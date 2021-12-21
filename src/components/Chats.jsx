@@ -5,6 +5,7 @@ import { Chat } from './index';
 const Chats = props => {
   return (
     <List
+      id={'scroll-area'}
       sx={{
         width: '100%',
         height: 400,
