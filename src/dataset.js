@@ -1,80 +1,80 @@
 const defaultDataset = {
     "init": {
         answers: [
-            {content: "仕事を依頼したい", nextId: "job_offer"},
-            {content: "エンジニアのキャリアについて相談したい", nextId: "consultant"},
-            {content: "学習コミュニティについて知りたい", nextId: "community"},
-            {content: "お付き合いしたい", nextId: "dating"},
+            {content: "I'd like to work with you.", nextId: "job_offer"},
+            {content: "I have a question about career as an engineer.", nextId: "consultant"},
+            {content: "Let me know about the learning community.", nextId: "community"},
+            {content: "Would you like to go out with me?", nextId: "dating"},
         ],
-        question: "こんにちは！🐯トラハックへのご用件はなんでしょうか？",
+        question: "Hello! How may I help you today?",
     },
     "job_offer": {
         answers: [
-            {content: "Webサイトを制作してほしい", nextId: "website"},
-            {content: "Webアプリを開発してほしい", nextId: "webapp"},
-            {content: "自動化ツールを作ってほしい", nextId: "automation_tool"},
-            {content: "その他", nextId: "other_jobs"}
+            {content: "Creating a website", nextId: "website"},
+            {content: "Developing a webapp", nextId: "webapp"},
+            {content: "Developing an automation tool", nextId: "automation_tool"},
+            {content: "Other jobs", nextId: "other_jobs"}
         ],
-        question: "どのようなお仕事でしょうか？",
+        question: "What type of job are you looking to offer me?",
     },
     "website": {
         answers: [
-            {content: "問い合わせる", nextId: "contact"},
-            {content: "最初の質問に戻る", nextId: "init"}
+            {content: "Contact me", nextId: "contact"},
+            {content: "Go back to the first question", nextId: "init"}
         ],
-        question: "Webサイト細作についてですね。コチラからお問い合わせできます。",
+        question: "Sure! Please give me the details on the following contact page ",
     },
     "webapp": {
         answers: [
-            {content: "問い合わせる", nextId: "contact"},
-            {content: "最初の質問に戻る", nextId: "init"}
+            {content: "Contact me", nextId: "contact"},
+            {content: "Go back to the first question", nextId: "init"}
         ],
-        question: "Webアプリ開発についてですね。コチラからお問い合わせできます。",
+        question: "Sure! Please give me the details on the following contact page",
     },
     "automation_tool": {
         answers: [
-            {content: "問い合わせる", nextId: "contact"},
-            {content: "最初の質問に戻る", nextId: "init"}
+            {content: "Contact me", nextId: "contact"},
+            {content: "Go back to the first question", nextId: "init"}
         ],
-        question: "自動化ツール開発についてですね。コチラからお問い合わせできます。",
+        question: "Sure! Please give me the details on the following contact page",
     },
     "other_jobs": {
         answers: [
-            {content: "問い合わせる", nextId: "contact"},
-            {content: "最初の質問に戻る", nextId: "init"}
+            {content: "Contact me", nextId: "contact"},
+            {content: "Go back to the first question", nextId: "init"}
         ],
-        question: "その他についてですね。コチラからお問い合わせできます。",
+        question: "Sure! Please give me the details on the following contact page",
     },
     "consultant": {
         answers: [
-            {content: "YouTubeで動画を見る", nextId: "https://www.youtube.com/channel/UC-bOAxx-YOsviSmqh8COR0w"},
-            {content: "学習コミュニティについて知りたい", nextId: "community"},
-            {content: "最初の質問に戻る", nextId: "init"}
+            {content: "Checkout the YouTube videos", nextId: "https://www.youtube.com/channel/UC-bOAxx-YOsviSmqh8COR0w"},
+            {content: "Let me know more about the learning community", nextId: "community"},
+            {content: "Go back to the first question", nextId: "init"}
         ],
-        question: "トラハックは普段からYouTubeでキャリアについて発信しています。また、僕が運営するエンジニア向け学習コミュニティ内でも相談に乗っていますよ。",
+        question: "We have a YouTube channel that provides you useful information about career and also we can talk on our learing community for engineers!",
     },
     "community": {
         answers: [
-            {content: "どんな活動をしているの？", nextId: "community_activity"},
-            {content: "コミュニティに参加したい", nextId: "https://torahack.web.app/community/"},
-            {content: "最初の質問に戻る", nextId: "init"}
+            {content: "What kind of activities does it have?", nextId: "community_activity"},
+            {content: "I'd like to join it!", nextId: "https://torahack.web.app/community/"},
+            {content: "Go back to the first question", nextId: "init"}
         ],
-        question: "2020年3月から学習コミュニティを始めました！🎉Webエンジニアへの転職を目指す人向けに、プログラミングを教えたりキャリアの相談に乗っています。",
+        question: "We launched this community in March 2020, and this is for those who are looking to shift thier career to web engineers! You can learn how to code and talk to us about career.",
     },
     "community_activity": {
         answers: [
-            {content: "さらに詳細を知りたい", nextId: "https://youtu.be/tIzE7hUDbBM"},
-            {content: "コミュニティに参加したい", nextId: "https://torahack.web.app/community/"},
-            {content: "最初の質問に戻る", nextId: "init"}
+            {content: "Give me the details", nextId: "https://youtu.be/tIzE7hUDbBM"},
+            {content: "I'd like to join it!", nextId: "https://torahack.web.app/community/"},
+            {content: "Go back to the first question", nextId: "init"}
         ],
-        question: "フロントエンド向けの教材の提供、キャリアや勉強法に関するメルマガの配信、週1のオンライン作業会などを開催しています！\n詳細はYouTube動画で紹介しています。",
+        question: "We provide the material for front-end development, email you useful information about how to build your career, how to code and more... Also, we host a monthly meeting online where you can make new friends and work together! \nIf you need more details, check out our YouTube videos :)",
     },
     "dating": {
         answers: [
-            {content: "DMする", nextId: "https://twitter.com/torahack_"},
-            {content: "最初の質問に戻る", nextId: "init"}
+            {content: "DM me", nextId: "https://twitter.com/torahack_"},
+            {content: "Go back to the first question", nextId: "init"}
         ],
-        question: "まずは一緒にランチでもいかがですか？DMしてください😘",
+        question: "Wow, that's amazing. Let's go for lunch! Please send me DM",
     },
 }
 
