@@ -6,7 +6,7 @@
             {"content": "Let me know about the learning community.", "nextId": "community"},
             {"content": "Would you like to go out with me?", "nextId": "dating"}
         ],
-"        ": "Hello! How may I help you today?"
+        "question": "Hello! How may I help you today?"
     },
     "job_offer": {
         "answers": [
