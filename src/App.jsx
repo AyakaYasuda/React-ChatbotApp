@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultDataset from './dataset';
 import './assets/styles/style.css';
-import { AnswersList, Chats } from './components/index';
+import { AnswersList, Chats, FormDialog } from './components/index';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -14,6 +14,8 @@ export default class App extends React.Component {
       open: false,
     };
     this.selectAnswer = this.selectAnswer.bind(this);
+    this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   displayNextQuestion = nextQuestionId => {
@@ -35,7 +37,10 @@ export default class App extends React.Component {
       case nextQuestionId === 'init':
         setTimeout(() => this.displayNextQuestion(nextQuestionId), 500);
         break;
-      case (/^https:*/.test(nextQuestionId)):
+      case nextQuestionId === 'contact':
+        this.handleClickOpen();
+        break;
+      case /^https:*/.test(nextQuestionId):
         const a = document.createElement('a');
         a.href = nextQuestionId;
         a.target = '_blank';
@@ -55,6 +60,14 @@ export default class App extends React.Component {
         setTimeout(() => this.displayNextQuestion(nextQuestionId), 1000);
         break;
     }
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
   };
 
   componentDidMount() {
@@ -78,6 +91,7 @@ export default class App extends React.Component {
             answers={this.state.answers}
             select={this.selectAnswer}
           />
+          <FormDialog open={this.state.open} handleClose={this.handleClose} />
         </div>
       </section>
     );
