@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -6,46 +6,39 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextInput from './TextInput';
 
-export default class FormDialog extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      email: '',
-      description: '',
-    };
-    this.inputName = this.inputName.bind(this);
-    this.inputEmail = this.inputEmail.bind(this);
-    this.inputDescription = this.inputDescription.bind(this);
-    this.validateRequiredInput = this.validateRequiredInput.bind(this);
-    this.validateEmailFormat = this.validateEmailFormat.bind(this);
-  }
+const FormDialog = props => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [description, setDescription] = useState('');
 
-  inputName = event => {
-    this.setState({
-      name: event.target.value,
-    });
-  };
+  const inputName = useCallback(
+    event => {
+      setName(event.target.value);
+    },
+    [setName]
+  );
 
-  inputEmail = event => {
-    this.setState({
-      email: event.target.value,
-    });
-  };
+  const inputEmail = useCallback(
+    event => {
+      setEmail(event.target.value);
+    },
+    [setEmail]
+  );
 
-  inputDescription = event => {
-    this.setState({
-      description: event.target.value,
-    });
-  };
+  const inputDescription = useCallback(
+    event => {
+      setDescription(event.target.value);
+    },
+    [setDescription]
+  );
 
-  validateEmailFormat = email => {
+  const validateEmailFormat = email => {
     const regex =
       /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return regex.test(email);
   };
 
-  validateRequiredInput = (...args) => {
+  const validateRequiredInput = (...args) => {
     let isBlank = false;
     for (let i = 0; i < args.length; i = (i + 1) | 0) {
       if (args[i] === '') {
@@ -55,13 +48,9 @@ export default class FormDialog extends React.Component {
     return isBlank;
   };
 
-  submitForm = () => {
-    const name = this.state.name;
-    const email = this.state.email;
-    const description = this.state.description;
-
-    const isBlank = this.validateRequiredInput(name, email, description);
-    const isValidEmail = this.validateEmailFormat(email);
+  const submitForm = () => {
+    const isBlank = validateRequiredInput(name, email, description);
+    const isValidEmail = validateEmailFormat(email);
 
     if (isBlank) {
       alert('One or more fields have an error. Please check and try again!');
@@ -70,72 +59,78 @@ export default class FormDialog extends React.Component {
       alert('Your email seems to be wrong. Please check and try again!');
       return false;
     } else {
-        const payload = {
-            text: 'You got a contact message! Check it out :)\n' +
-                  'Name: ' + name + '\n' +
-                  'E-mail: ' + email + '\n' +
-                  'Message:\n' + description + '\n' 
-        }
-        
-        const url = 'https://hooks.slack.com/services/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'
+      const payload = {
+        text:
+          'You got a contact message! Check it out :)\n' +
+          'Name: ' +
+          name +
+          '\n' +
+          'E-mail: ' +
+          email +
+          '\n' +
+          'Message:\n' +
+          description +
+          '\n',
+      };
 
-        fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        }).then(() => {
-            alert('Message Sent!')
-            this.setState({
-                name: "",
-                email: "",
-                description: ""
-            })
-            return this.props.handleClose()
-        })
+      const url =
+        'https://hooks.slack.com/services/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';
+
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      }).then(() => {
+        alert('Message Sent!');
+        setName('');
+        setEmail('');
+        setDescription('');
+        return props.handleClose();
+      });
     }
   };
 
-  render() {
-    return (
-      <Dialog
-        open={this.props.open}
-        onClose={this.props.handleClose}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-      >
-        <DialogTitle id='alert-dialog-title'>Contact Me</DialogTitle>
-        <DialogContent>
-          <TextInput
-            label={'Name(required)'}
-            multiline={false}
-            rows={1}
-            value={this.state.name}
-            type={'text'}
-            onChange={this.inputName}
-          />
-          <TextInput
-            label={'E-mail(required)'}
-            multiline={false}
-            rows={1}
-            value={this.state.email}
-            type={'email'}
-            onChange={this.inputEmail}
-          />
-          <TextInput
-            label={'Message(required)'}
-            multiline={true}
-            rows={5}
-            value={this.state.description}
-            type={'text'}
-            onChange={this.inputDescription}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.props.handleClose}>Cancel</Button>
-          <Button onClick={this.submitForm} autoFocus>
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
-}
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
+    >
+      <DialogTitle id='alert-dialog-title'>Contact Me</DialogTitle>
+      <DialogContent>
+        <TextInput
+          label={'Name(required)'}
+          multiline={false}
+          rows={1}
+          value={name}
+          type={'text'}
+          onChange={inputName}
+        />
+        <TextInput
+          label={'E-mail(required)'}
+          multiline={false}
+          rows={1}
+          value={email}
+          type={'email'}
+          onChange={inputEmail}
+        />
+        <TextInput
+          label={'Message(required)'}
+          multiline={true}
+          rows={5}
+          value={description}
+          type={'text'}
+          onChange={inputDescription}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={props.handleClose}>Cancel</Button>
+        <Button onClick={submitForm} autoFocus>
+          Submit
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+export default FormDialog;
